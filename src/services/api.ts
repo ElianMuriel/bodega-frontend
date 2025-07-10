@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3004'; // 👈 Cambia si tu backend está en otro puerto o dominio
+const API_URL = import.meta.env.DEV
+  ? 'http://localhost:3004' // 🖥️ Localhost cuando corres npm run dev
+  : import.meta.env.VITE_API_URL; // 🌐 En producción (Netlify)
 
 const api = axios.create({
     baseURL: API_URL,
