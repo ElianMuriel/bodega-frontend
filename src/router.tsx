@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register"; // 👈 importa Register
 import Dashboard from "./pages/Dashboard";
+import Categories from "./pages/Categories";
 
 export const router = createBrowserRouter([
   {
@@ -20,5 +21,9 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
+  },
+  {
+    path: "/categories",
+    element: <Categories />,
   },
 ]);
