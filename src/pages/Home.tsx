@@ -1,5 +1,6 @@
 import { Typography, Container, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -15,6 +16,9 @@ export default function Home() {
       <Button variant="contained" onClick={() => navigate("/login")} sx={{ mt: 2 }}>
         Iniciar sesión
       </Button>
+      <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+        Bodega Front End Elian Muriel
+      </Box>
     </Container>
   );
 }
