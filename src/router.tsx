@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Categories from "./pages/Categories";
 import PrivateRoute from "./components/PrivateRoute"; // 👈 importa PrivateRoute
+import Products from "./pages/Products";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ export const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <Categories />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/products",
+    element: (
+      <PrivateRoute>
+        <Products />
       </PrivateRoute>
     ),
   },

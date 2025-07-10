@@ -56,5 +56,8 @@ export const deleteCategory = async (id: string) => {
     return response.data;
 };
 
+export const getProducts = () => api.get("/products").then((res) => res.data);
+export const addProduct = (product: any) =>
+    api.post("/products", product).then((res) => res.data);
 
 export default api;
