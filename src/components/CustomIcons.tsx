@@ -1,14 +1,20 @@
 import SvgIcon from '@mui/material/SvgIcon';
 import { Typography, Stack } from "@mui/material";
-import Inventory2Icon from "@mui/icons-material/Inventory2"; // 📦 Icono de caja
+import WarehouseIcon from '@mui/icons-material/Warehouse';// 📦 Icono de caja
+import { useColorScheme } from "@mui/material/styles";
 
 export function SitemarkIcon() {
+  const { mode } = useColorScheme();
+
+  // Colores dinámicos según el modo
+  const iconColor = mode === "dark" ? "rgba(255,255,255,0.9)" : "primary.main";
+  const textColor = mode === "dark" ? "rgba(255,255,255,0.9)" : "primary.main";
   return (
     <Stack direction="column" alignItems="center" spacing={1}>
-      <Inventory2Icon sx={{ fontSize: 28, color: "primary.main" }} />
+      <WarehouseIcon sx={{ fontSize: 40, color: iconColor }} />
       <Typography
         variant="h5"
-        sx={{ fontWeight: "bold", color: "primary.main" }}
+        sx={{ fontWeight: "bold", color: textColor }}
       >
         Bodega Cintas de Elian
       </Typography>

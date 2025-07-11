@@ -126,7 +126,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             variant="h4"
             sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
           >
-            Sign in
+            Iniciar Sesión
           </Typography>
           <Box
             component="form"
@@ -140,7 +140,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             }}
           >
             <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
+              <FormLabel htmlFor="email">Correo Electrónico</FormLabel>
               <TextField
                 error={emailError}
                 helperText={emailErrorMessage}
@@ -157,7 +157,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password">Contraseña: </FormLabel>
               <TextField
                 error={passwordError}
                 helperText={passwordErrorMessage}
@@ -175,7 +175,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Recordar datos"
             />
             <ForgotPassword open={open} handleClose={handleClose} />
             <Button
@@ -184,7 +184,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               variant="contained"
               onClick={validateInputs}
             >
-              Sign in
+              Inisiar Sesión
             </Button>
             <Link
               component="button"
@@ -193,7 +193,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               variant="body2"
               sx={{ alignSelf: 'center' }}
             >
-              Forgot your password?
+              Olvido su contraseña?
             </Link>
           </Box>
           <Divider>or</Divider>
@@ -215,13 +215,13 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               Sign in with Facebook
             </Button>
             <Typography sx={{ textAlign: 'center' }}>
-              Don&apos;t have an account?{' '}
+              ¿Aún no tienes cuenta?{' '}
               <Link
-                href="/material-ui/getting-started/templates/sign-in/"
+                href="/register"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >
-                Sign up
+                Regístrate
               </Link>
             </Typography>
           </Box>
