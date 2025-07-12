@@ -17,6 +17,8 @@ import ForgotPassword from '../components/ForgotPassword';
 import AppTheme from '../theme/AppTheme';
 import ColorModeSelect from '../theme/ColorModeSelect';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../components/CustomIcons';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -60,7 +62,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export default function SignIn(props: { disableCustomTheme?: boolean }) {
+export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: () => void }) {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
@@ -95,7 +97,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 
     if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
       setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
+      setEmailErrorMessage('Por favor ingrese un correo electrónico valido.');
       isValid = false;
     } else {
       setEmailError(false);
@@ -104,7 +106,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 
     if (!password.value || password.value.length < 6) {
       setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
+      setPasswordErrorMessage('La contraseña debe tener minimo 6 caracteres.');
       isValid = false;
     } else {
       setPasswordError(false);
@@ -119,7 +121,22 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
         <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
-        <Card variant="outlined">
+        <Card variant="outlined" sx={{ position: 'relative' }}>
+          {props.onClose && (
+            <IconButton
+              onClick={props.onClose}
+              sx={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                color: 'grey.500',
+                '&:hover': { color: 'grey.700' },
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          )}
+
           <SitemarkIcon />
           <Typography
             component="h1"
@@ -140,14 +157,14 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             }}
           >
             <FormControl>
-              <FormLabel htmlFor="email">Correo Electrónico</FormLabel>
+              <FormLabel htmlFor="email">Correo Electrónico: </FormLabel>
               <TextField
                 error={emailError}
                 helperText={emailErrorMessage}
                 id="email"
                 type="email"
                 name="email"
-                placeholder="your@email.com"
+                placeholder="Tu correo electrónico"
                 autoComplete="email"
                 autoFocus
                 required
@@ -162,7 +179,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
                 error={passwordError}
                 helperText={passwordErrorMessage}
                 name="password"
-                placeholder="••••••"
+                placeholder="••••••••••"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -204,7 +221,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               onClick={() => alert('Sign in with Google')}
               startIcon={<GoogleIcon />}
             >
-              Sign in with Google
+              Iniciar sesión con Google
             </Button>
             <Button
               fullWidth
@@ -212,7 +229,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               onClick={() => alert('Sign in with Facebook')}
               startIcon={<FacebookIcon />}
             >
-              Sign in with Facebook
+              Iniciar sesión con Facebook
             </Button>
             <Typography sx={{ textAlign: 'center' }}>
               ¿Aún no tienes cuenta?{' '}

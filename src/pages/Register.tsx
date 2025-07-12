@@ -76,7 +76,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
 
     if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
       setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
+      setEmailErrorMessage('Por favor ingrese un correo electrónico valido.');
       isValid = false;
     } else {
       setEmailError(false);
@@ -85,7 +85,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
 
     if (!password.value || password.value.length < 6) {
       setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
+      setPasswordErrorMessage('La contraseña debe tener minimo 6 caracteres.');
       isValid = false;
     } else {
       setPasswordError(false);
@@ -94,7 +94,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
 
     if (!name.value || name.value.length < 1) {
       setNameError(true);
-      setNameErrorMessage('Name is required.');
+      setNameErrorMessage('El nombre es requerido.');
       isValid = false;
     } else {
       setNameError(false);
@@ -138,26 +138,26 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
             <FormControl>
-              <FormLabel htmlFor="name">Nombre y Apellido</FormLabel>
+              <FormLabel htmlFor="name">Nombre y Apellido: </FormLabel>
               <TextField
                 autoComplete="name"
                 name="name"
                 required
                 fullWidth
                 id="name"
-                placeholder="Nombre Apellido"
+                placeholder=" Tu nombre y apellido"
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="email">Correo Electrónico</FormLabel>
+              <FormLabel htmlFor="email">Correo Electrónico: </FormLabel>
               <TextField
                 required
                 fullWidth
                 id="email"
-                placeholder="emailpersonal@email.com"
+                placeholder="Tu correo electrónico"
                 name="email"
                 autoComplete="email"
                 variant="outlined"
@@ -167,7 +167,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">Contraseña</FormLabel>
+              <FormLabel htmlFor="password">Contraseña: </FormLabel>
               <TextField
                 required
                 fullWidth
@@ -205,7 +205,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
               onClick={() => alert('Sign up with Google')}
               startIcon={<GoogleIcon />}
             >
-              Sign up with Google
+              Iniciar sesión con Google
             </Button>
             <Button
               fullWidth
@@ -213,7 +213,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
               onClick={() => alert('Sign up with Facebook')}
               startIcon={<FacebookIcon />}
             >
-              Sign up with Facebook
+              Iniciar sesión con Facebook
             </Button>
             <Typography sx={{ textAlign: 'center' }}>
               ¿Ya tienes cuenta?{' '}

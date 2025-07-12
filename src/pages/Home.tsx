@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import { AppBar, Toolbar, Typography, Container, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Navbar */}
+      {/* Navbar *//*}
       <AppBar position="static" sx={{ bgcolor: "#D69A5C" }}>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -61,7 +61,7 @@ export default function Home() {
         </Toolbar>
       </AppBar>
 
-      {/* Contenido */}
+      {/* Contenido *//*}
       <Container sx={{ mt: 4 }}>
         {isLoggedIn ? (
           <>
@@ -105,5 +105,43 @@ export default function Home() {
         </Box>
       </Container>
     </>
+  );
+}
+*/
+
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import AppTheme from '../theme/AppTheme';
+import AppAppBar from '../components/AppAppBar';
+import Hero from '../components/Hero';
+import LogoCollection from '../components/LogoCollection';
+import ProductCategories from '../components/Highlights';
+import Pricing from '../components/Pricing';
+import Features from '../components/Features';
+import FAQ from '../components/FAQ';
+import Footer from '../components/Footer';
+
+export default function MarketingPage(props: { disableCustomTheme?: boolean }) {
+  return (
+    <AppTheme {...props}>
+      <CssBaseline enableColorScheme />
+
+      <AppAppBar />
+      <Hero />
+      <div>
+        <Divider />
+        <Features />
+        <Divider />
+        <ProductCategories />
+        <Divider />
+        <Pricing />
+        <Divider />
+        <FAQ />
+        <Divider />
+        <LogoCollection />
+        <Divider />
+        <Footer />
+      </div>
+    </AppTheme>
   );
 }
