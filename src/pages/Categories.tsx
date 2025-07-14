@@ -23,7 +23,6 @@ import {
     deleteCategory,
 } from "../services/api";
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import AppTheme from '../theme/AppTheme';
 import AppAppBar from '../components/AppAppBar';
 

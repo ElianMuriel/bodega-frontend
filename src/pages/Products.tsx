@@ -11,7 +11,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Divider from '@mui/material/Divider';
 import AppAppBar from '../components/AppAppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 
