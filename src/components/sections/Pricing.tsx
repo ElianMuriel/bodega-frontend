@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import SignIn from '../pages/Login'; // Aquí importamos tu login
+import SignIn from '../../pages/Login'; // Aquí importamos tu login
 
 const isLoggedIn = false;
 

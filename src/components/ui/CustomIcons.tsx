@@ -3,7 +3,7 @@ import { Typography, Stack } from "@mui/material";
 import WarehouseIcon from '@mui/icons-material/Warehouse';// 📦 Icono de caja
 import { useColorScheme } from "@mui/material/styles";
 
-export function SitemarkIcon() {
+export function SitemarkIconVertical() {
   const { mode } = useColorScheme();
 
   // Colores dinámicos según el modo

@@ -2,7 +2,7 @@ import { Box, CssBaseline, Toolbar, Drawer, List, ListItem, ListItemText } from 
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { ListItemButton } from "@mui/material";
-import { SitemarkIcon } from "./SitemarkIcon";
+import { SitemarkIconHorizontal } from "../ui/SitemarkIcon";
 
 const drawerWidth = 240;
 
@@ -25,7 +25,7 @@ export default function DashboardLayout({ children }: Props) {
             >
                 <Toolbar />
                 <List>
-                    <SitemarkIcon />
+                    <SitemarkIconHorizontal />
                     <ListItem disablePadding>
                         <ListItemButton onClick={() => navigate("/")}>
                             <ListItemText primary="Inicio" />

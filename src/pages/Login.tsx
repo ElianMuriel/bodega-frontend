@@ -13,10 +13,10 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import ForgotPassword from '../components/ForgotPassword';
+import ForgotPassword from '../components/form/ForgotPassword';
 import AppTheme from '../theme/AppTheme';
 import ColorModeSelect from '../theme/ColorModeSelect';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../components/CustomIcons';
+import { GoogleIcon, FacebookIcon, SitemarkIconVertical } from '../components/ui/CustomIcons';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -137,7 +137,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: 
             </IconButton>
           )}
 
-          <SitemarkIcon />
+          <SitemarkIconVertical />
           <Typography
             component="h1"
             variant="h4"

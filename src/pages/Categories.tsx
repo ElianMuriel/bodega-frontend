@@ -24,7 +24,7 @@ import {
 } from "../services/api";
 import CssBaseline from '@mui/material/CssBaseline';
 import AppTheme from '../theme/AppTheme';
-import AppAppBar from '../components/AppAppBar';
+import AppAppBar from '../components/layout/AppAppBar';
 
 interface Category {
     id: string;

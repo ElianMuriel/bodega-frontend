@@ -8,16 +8,13 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import UploadIcon from '@mui/icons-material/Upload';
 import DownloadIcon from '@mui/icons-material/Download';
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid';
-import AppNavbar from '../components/AppNavbar';
-import ColorModeIconDropdown from '.././theme/ColorModeIconDropdown';
-import SideMenu from '../components/SideMenu';
 import AppTheme from '../theme/AppTheme';
+import { AppNavbar, Header, SideMenu } from '@/components/layout';
 import {
     chartsCustomizations,
     dataGridCustomizations,
@@ -95,6 +92,7 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
                             mt: { xs: 8, md: 0 },
                         }}
                     >
+                        <Header/>
                         {/* Header */}
                         <Stack
                             direction={{ xs: 'column', sm: 'row' }}
@@ -126,17 +124,8 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
                                 >
                                     Add
                                 </Button>
-                                <ColorModeIconDropdown />
                             </Stack>
                         </Stack>
-
-                        {/* Search bar */}
-                        <TextField
-                            fullWidth
-                            placeholder="Buscar usuario"
-                            variant="outlined"
-                        />
-
                         {/* DataGrid */}
                         <Box
                             sx={{

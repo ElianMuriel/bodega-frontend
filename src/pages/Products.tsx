@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import AppAppBar from '../components/AppAppBar';
+import AppAppBar from '../components/layout/AppAppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // 📝 Tipado del producto según backend (MongoDB usa _id)

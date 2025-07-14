@@ -1,9 +1,9 @@
 import Stack from '@mui/material/Stack';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
-import CustomDatePicker from './CustomDatePicker';
-import NavbarBreadcrumbs from './NavbarBreadcrumbs';
-import MenuButton from './MenuButton';
-import ColorModeIconDropdown from '.././theme/ColorModeIconDropdown';
+import CustomDatePicker from '../form/CustomDatePicker';
+import NavbarBreadcrumbs from '../breadcrumbs/NavbarBreadcrumbs';
+import MenuButton from '../ui/MenuButton';
+import ColorModeIconDropdown from '../../theme/ColorModeIconDropdown';
 
 import Search from './Search';
 

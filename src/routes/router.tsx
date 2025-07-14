@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import MarketingPage from "./pages/Home";
-import SignIn from "./pages/Login";
-import SignUp from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Categories from "./pages/Categories";
-import PrivateRoute from "./components/PrivateRoute"; // 👈 importa PrivateRoute
-import Products from "./pages/Products";
-import AddProduct from "./pages/AddProduct";
-import Users from "./pages/Users";
+import MarketingPage from "../pages/Home";
+import SignIn from "../pages/Login";
+import SignUp from "../pages/Register";
+import Dashboard from "../pages/Dashboard";
+import Categories from "../pages/Categories";
+import PrivateRoute from "./PrivateRoute";
+import Products from "../pages/Products";
+import AddProduct from "../pages/AddProduct";
+import Users from "../pages/Users";
 
 export const router = createBrowserRouter([
   {
