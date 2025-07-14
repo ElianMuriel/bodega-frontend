@@ -22,6 +22,10 @@ import {
     updateCategory,
     deleteCategory,
 } from "../services/api";
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import AppTheme from '../theme/AppTheme';
+import AppAppBar from '../components/AppAppBar';
 
 interface Category {
     id: string;
@@ -29,7 +33,7 @@ interface Category {
     description: string;
 }
 
-export default function Categories() {
+export default function Categories(props: { disableCustomTheme?: boolean }) {
     const [categories, setCategories] = useState<Category[]>([]);
     const [open, setOpen] = useState(false);
     const [editMode, setEditMode] = useState(false);
@@ -99,64 +103,68 @@ export default function Categories() {
     };
 
     return (
-        <Box sx={{ p: 4 }}>
-            <Typography variant="h4" gutterBottom>
-                Categorías
-            </Typography>
-            <Button variant="contained" startIcon={<Add />} onClick={() => handleOpen()}>
-                Nueva Categoría
-            </Button>
-            <Table sx={{ mt: 2 }}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Nombre</TableCell>
-                        <TableCell>Descripción</TableCell>
-                        <TableCell>Acciones</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {categories.map((cat) => (
-                        <TableRow key={cat.id}>
-                            <TableCell>{cat.name}</TableCell>
-                            <TableCell>{cat.description}</TableCell>
-                            <TableCell>
-                                <IconButton onClick={() => handleOpen(cat)}>
-                                    <Edit />
-                                </IconButton>
-                                <IconButton color="error" onClick={() => handleDelete(cat.id)}>
-                                    <Delete />
-                                </IconButton>
-                            </TableCell>
+        <AppTheme {...props}>
+            <CssBaseline enableColorScheme />
+            <AppAppBar />
+            <Box sx={{ p: 4 }}>
+                <Typography variant="h4" gutterBottom>
+                    Categorías
+                </Typography>
+                <Button variant="contained" startIcon={<Add />} onClick={() => handleOpen()}>
+                    Nueva Categoría
+                </Button>
+                <Table sx={{ mt: 2 }}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Nombre</TableCell>
+                            <TableCell>Descripción</TableCell>
+                            <TableCell>Acciones</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHead>
+                    <TableBody>
+                        {categories.map((cat) => (
+                            <TableRow key={cat.id}>
+                                <TableCell>{cat.name}</TableCell>
+                                <TableCell>{cat.description}</TableCell>
+                                <TableCell>
+                                    <IconButton onClick={() => handleOpen(cat)}>
+                                        <Edit />
+                                    </IconButton>
+                                    <IconButton color="error" onClick={() => handleDelete(cat.id)}>
+                                        <Delete />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
 
-            <Dialog open={open} onClose={handleClose} disableEnforceFocus>
-                <DialogTitle>{editMode ? "Editar Categoría" : "Nueva Categoría"}</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        label="Nombre"
-                        fullWidth
-                        margin="normal"
-                        value={name||""}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <TextField
-                        label="Descripción"
-                        fullWidth
-                        margin="normal"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancelar</Button>
-                    <Button variant="contained" onClick={handleSave}>
-                        Guardar
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </Box>
+                <Dialog open={open} onClose={handleClose} disableEnforceFocus>
+                    <DialogTitle>{editMode ? "Editar Categoría" : "Nueva Categoría"}</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            label="Nombre"
+                            fullWidth
+                            margin="normal"
+                            value={name || ""}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <TextField
+                            label="Descripción"
+                            fullWidth
+                            margin="normal"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>Cancelar</Button>
+                        <Button variant="contained" onClick={handleSave}>
+                            Guardar
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </Box>
+        </AppTheme>
     );
 }

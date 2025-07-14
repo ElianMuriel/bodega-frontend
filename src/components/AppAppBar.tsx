@@ -160,10 +160,10 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                <MenuItem onClick={() => scrollToSection('features')}>Features</MenuItem>
-                <MenuItem onClick={() => scrollToSection('highlights')}>Highlights</MenuItem>
-                <MenuItem onClick={() => scrollToSection('pricing')}>Pricing</MenuItem>
-                <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
+                <MenuItem onClick={() => scrollToSection('features')}>Caracteristicas</MenuItem>
+                <MenuItem onClick={() => scrollToSection('highlights')}>Productos</MenuItem>
+                <MenuItem onClick={() => scrollToSection('pricing')}>Precios</MenuItem>
+                <MenuItem onClick={() => scrollToSection('faq')}>Preguntas frecuentes</MenuItem>
                 <MenuItem onClick={() => scrollToSection('blog')}>Blog</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
