@@ -12,13 +12,13 @@ const api = axios.create({
 });
 
 // Si hay token guardado, lo añade automáticamente a las peticiones
-api.interceptors.request.use((config) => {
+/*api.interceptors.request.use((config) => {
     const token = localStorage.getItem('access_token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
-});
+});*/
 
 // Función para login
 export const loginApi = async (email: string, password: string) => {
