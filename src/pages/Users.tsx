@@ -32,7 +32,7 @@ import {
 
 interface User {
     id: string;
-    name: string;
+    username: string;
     email: string;
     phone: string;
     role: string;
@@ -51,7 +51,7 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
     const [open, setOpen] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [name, setName] = useState("");
+    const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [role, setRole] = useState("");
@@ -72,14 +72,14 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
     const handleOpen = (user?: User) => {
         if (user) {
             setSelectedUser(user);
-            setName(user.name);
+            setUserName(user.username);
             setEmail(user.email);
             setPhone(user.phone);
             setRole(user.role);
             setEditMode(true);
         } else {
             setSelectedUser(null);
-            setName("");
+            setUserName("");
             setEmail("");
             setPhone("");
             setRole("");
@@ -90,7 +90,7 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
 
     const handleClose = () => {
         setOpen(false);
-        setName("");
+        setUserName("");
         setEmail("");
         setPhone("");
         setRole("");
@@ -101,9 +101,9 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
     const handleSave = async () => {
         try {
             if (editMode && selectedUser) {
-                await updateUser(selectedUser.id, { name, email, phone, role });
+                await updateUser(selectedUser.id, { username, email, phone, role });
             } else {
-                await createUser({ name, email, phone, role });
+                await createUser({ username, email, phone, role });
             }
             loadUsers();
             handleClose();
@@ -124,7 +124,7 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
     };
 
     const columns: GridColDef[] = [
-        { field: "name", headerName: "Nombre", flex: 1 },
+        { field: "username", headerName: "Nombre", flex: 1 },
         { field: "email", headerName: "Correo Electrónico", flex: 1.5 },
         { field: "phone", headerName: "Teléfono", flex: 1 },
         { field: "role", headerName: "Rol", flex: 0.8 },
@@ -242,7 +242,7 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
                                 fullWidth
                                 margin="normal"
                                 value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => setUserName(e.target.value)}
                             />
                             <TextField
                                 label="Correo Electrónico"

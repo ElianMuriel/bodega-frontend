@@ -65,12 +65,12 @@ export const getUsers = async () => {
     return response.data;
 };
 
-export const createUser = async (user: { name: string; email: string; phone: string; role: string }) => {
+export const createUser = async (user: { username: string; email: string; phone: string; role: string }) => {
     const response = await api.post('/users', user);
     return response.data;
 };
 
-export const updateUser = async (id: string, user: { name: string; email: string; phone: string; role: string }) => {
+export const updateUser = async (id: string, user: { username: string; email: string; phone: string; role: string }) => {
     const response = await api.put(`/users/${id}`, user);
     return response.data;
 };
