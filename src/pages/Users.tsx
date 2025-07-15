@@ -55,6 +55,7 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [role, setRole] = useState("");
+    const [password, setPassword] = useState("");
 
     const loadUsers = async () => {
         try {
@@ -103,7 +104,7 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
             if (editMode && selectedUser) {
                 await updateUser(selectedUser.id, { username, email, phone, role });
             } else {
-                await createUser({ username, email, phone, role });
+                await createUser({ username, email, phone, role, password });
             }
             loadUsers();
             handleClose();
@@ -264,6 +265,14 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
                                 margin="normal"
                                 value={role}
                                 onChange={(e) => setRole(e.target.value)}
+                            />
+                            <TextField
+                                label="Contraseña"
+                                type="password"
+                                fullWidth
+                                margin="normal"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </DialogContent>
                         <DialogActions>
