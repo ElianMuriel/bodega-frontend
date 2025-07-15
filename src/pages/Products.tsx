@@ -1,18 +1,37 @@
 import AppTheme from '../theme/AppTheme';
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/api";
+import type { GridColDef } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
+import dayjs from "dayjs";
+
 import {
-  Container,
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  CircularProgress,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import AppAppBar from '../components/layout/AppAppBar';
+  alpha
+} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import UploadIcon from '@mui/icons-material/Upload';
+import DownloadIcon from '@mui/icons-material/Download';
+import AddIcon from '@mui/icons-material/Add';
+import { AppNavbar, Header, SideMenu } from '@/components/layout';
+import {
+  chartsCustomizations,
+  dataGridCustomizations,
+  datePickersCustomizations,
+  treeViewCustomizations,
+} from '../theme/customizations';
+import CircularProgress from '@mui/material/CircularProgress';
+import AddProductDialog from './AddProduct';
+
+const xThemeComponents = {
+  ...chartsCustomizations,
+  ...dataGridCustomizations,
+  ...datePickersCustomizations,
+  ...treeViewCustomizations,
+};
 
 // 📝 Tipado del producto según backend (MongoDB usa _id)
 interface Product {
@@ -20,68 +39,150 @@ interface Product {
   name: string;
   price: number;
   createdBy?: string; // opcional
+  createdAt?: Date;   // opcional
 }
 
-export default function Products (props: { disableCustomTheme?: boolean }) {
+export default function Products(props: { disableCustomTheme?: boolean }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const [openAdd, setOpenAdd] = useState(false);
+
+  const loadProducts = async () => {
+    setLoading(true);
+    try {
+      const data = await getProducts();
+      setProducts(data);
+    } catch (err) {
+      console.error("Error cargando productos:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    getProducts()
-      .then((data) => setProducts(data))
-      .catch((err) => console.error("Error cargando productos:", err))
-      .finally(() => setLoading(false));
+    loadProducts();
   }, []);
+
+  const columns: GridColDef[] = [
+    { field: 'name', headerName: 'Nombre', flex: 1 },
+    { field: 'price', headerName: 'Precio', flex: 0.8, 
+      valueFormatter: (value: number) => `$${value.toFixed(2)}` },
+    {
+      field: 'createdBy',
+      headerName: 'Creado Por',
+      flex: 1,
+      valueFormatter: (value?: string) => value ?? "N/A",
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Fecha de Creación',
+      flex: 1,
+      valueFormatter: (value?: Date) =>
+        value ? dayjs(value).format('DD/MM/YYYY') : "N/A",
+    },
+  ];
 
   if (loading) {
     return (
-      <Container sx={{ mt: 4, textAlign: "center" }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}>
         <CircularProgress />
-        <Typography variant="body1" sx={{ mt: 2 }}>
+        <Typography variant="body1" sx={{ ml: 2 }}>
           Cargando productos...
         </Typography>
-      </Container>
+      </Box>
     );
   }
 
   return (
-    <AppTheme {...props}>
+    <AppTheme {...props} themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
-      <AppAppBar />
-      <Container sx={{ mt: 13 }}>
-        <Typography variant="h4" gutterBottom>
-          📦 Productos disponibles
-        </Typography>
-        <Button
-          variant="contained"
-          sx={{ mb: 2 }}
-          onClick={() => navigate("/add-product")}
+      <Box sx={{ display: 'flex' }}>
+        <SideMenu />
+        <AppNavbar />
+        <Box
+          component="main"
+          sx={(theme) => ({
+            flexGrow: 1,
+            backgroundColor: theme.vars
+              ? `rgba(${theme.vars.palette.background.defaultChannel} / 1)`
+              : alpha(theme.palette.background.default, 1),
+            overflow: 'auto',
+          })}
         >
-          ➕ Agregar Producto
-        </Button>
+          <Stack
+            spacing={2}
+            sx={{
+              alignItems: 'center',
+              mx: 3,
+              pb: 5,
+              mt: { xs: 8, md: 0 },
+            }}
+          >
+            <Header />
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              justifyContent="space-between"
+              alignItems={{ xs: 'stretch', sm: 'center' }}
+              spacing={2}
+              sx={{ width: '100%' }}
+            >
+              <Typography variant="h4">📦 Productos</Typography>
+              <Stack direction="row" spacing={1}>
+                <Button
+                  color="inherit"
+                  startIcon={<UploadIcon />}
+                  variant="outlined"
+                >
+                  Importar
+                </Button>
+                <Button
+                  color="inherit"
+                  startIcon={<DownloadIcon />}
+                  variant="outlined"
+                >
+                  Exportar
+                </Button>
+                <Button
+                  startIcon={<AddIcon />}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setOpenAdd(true)}
+                >
+                  Agregar
+                </Button>
+              </Stack>
+            </Stack>
+            <Box
+              sx={{
+                height: { xs: 400, md: 500 },
+                width: '100%',
+                bgcolor: 'background.paper',
+                borderRadius: 2,
+              }}
+            >
+              <DataGrid
+                rows={products}
+                columns={columns}
+                getRowId={(row) => row._id}
+                initialState={{
+                  pagination: {
+                    paginationModel: { pageSize: 5, page: 0 },
+                  },
+                }}
+                pageSizeOptions={[5, 10, 25]}
+                disableRowSelectionOnClick
+              />
+            </Box>
+          </Stack>
+        </Box>
+      </Box>
 
-        <Grid container spacing={3}>
-          {products.map((p) => (
-            // @ts-ignore
-            <Grid item xs={12} sm={6} md={4} key={p._id}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    {p.name}
-                  </Typography>
-                  <Typography variant="body2">💲 ${p.price}</Typography>
-                  {p.createdBy && (
-                    <Typography variant="caption">
-                      Creado por: {p.createdBy}
-                    </Typography>
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+      {/* Modal para agregar producto */}
+      <AddProductDialog
+        open={openAdd}
+        onClose={() => setOpenAdd(false)}
+        onSuccess={loadProducts}
+      />
     </AppTheme>
   );
 }

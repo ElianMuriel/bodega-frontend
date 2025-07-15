@@ -6,7 +6,7 @@ import Dashboard from "../pages/Dashboard";
 import Categories from "../pages/Categories";
 import PrivateRoute from "./PrivateRoute";
 import Products from "../pages/Products";
-import AddProduct from "../pages/AddProduct";
+import AddProductDialog from "../pages/AddProduct";
 import Users from "../pages/Users";
 
 export const router = createBrowserRouter([
@@ -32,7 +32,9 @@ export const router = createBrowserRouter([
   },
   {
     path: "/add-product",
-    element: <AddProduct />,
+    element: <AddProductDialog open={false} onClose={function (): void {
+      throw new Error("Function not implemented.");
+    } } />,
   },
   {
     path: "/dashboard",
@@ -70,7 +72,9 @@ export const router = createBrowserRouter([
   path: "/add-product",
   element: (
     <PrivateRoute>
-      <AddProduct />
+      <AddProductDialog open={false} onClose={function (): void {
+        throw new Error("Function not implemented.");
+      } } />
     </PrivateRoute>
   ),
 },

@@ -60,4 +60,25 @@ export const getProducts = () => api.get("/products").then((res) => res.data);
 export const addProduct = (product: any) =>
     api.post("/products", product).then((res) => res.data);
 
+export const getUsers = async () => {
+    const response = await api.get('/users');
+    return response.data;
+};
+
+export const createUser = async (user: { name: string; email: string; phone: string; role: string }) => {
+    const response = await api.post('/users', user);
+    return response.data;
+};
+
+export const updateUser = async (id: string, user: { name: string; email: string; phone: string; role: string }) => {
+    const response = await api.put(`/users/${id}`, user);
+    return response.data;
+};
+
+export const deleteUser = async (id: string) => {
+    const response = await api.delete(`/users/${id}`);
+    return response.data;
+};
+
+
 export default api;

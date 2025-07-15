@@ -14,15 +14,15 @@ import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 const mainListItems = [
-  { text: 'Home', icon: <HomeRoundedIcon />, path: '/dashboard' },
-  { text: 'Analytics', icon: <AnalyticsRoundedIcon />, path: '/analytics' },
-  { text: 'Clients', icon: <PeopleRoundedIcon />, path: '/users' },
-  { text: 'Tasks', icon: <AssignmentRoundedIcon />, path: '/tasks' },
+  { text: 'Inicio', icon: <HomeRoundedIcon />, path: '/dashboard' },
+  { text: 'Categorias', icon: <AnalyticsRoundedIcon />, path: '/categories' },
+  { text: 'Usuarios', icon: <PeopleRoundedIcon />, path: '/users' },
+  { text: 'Productos', icon: <AssignmentRoundedIcon />, path: '/products' },
 ];
 
 const secondaryListItems = [
-  { text: 'Settings', icon: <SettingsRoundedIcon />, path: '/settings' },
-  { text: 'About', icon: <InfoRoundedIcon />, path: '/about' },
+  { text: 'Configuración', icon: <SettingsRoundedIcon />, path: '/settings' },
+  { text: 'Sobre nosotros', icon: <InfoRoundedIcon />, path: '/about' },
   { text: 'Feedback', icon: <HelpRoundedIcon />, path: '/feedback' },
 ];
 
