@@ -241,7 +241,7 @@ export default function Users(props: { disableCustomTheme?: boolean }) {
                                 label="Nombre"
                                 fullWidth
                                 margin="normal"
-                                value={name}
+                                value={username}
                                 onChange={(e) => setUserName(e.target.value)}
                             />
                             <TextField
