@@ -19,6 +19,8 @@ import ColorModeSelect from '../theme/ColorModeSelect';
 import { GoogleIcon, FacebookIcon, SitemarkIconVertical } from '../components/ui/CustomIcons';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
+import { loginApi } from '../services/api'; // 👈 API login import
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -63,6 +65,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: () => void }) {
+  const navigate = useNavigate();
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
@@ -75,18 +78,6 @@ export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: 
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
 
   const validateInputs = () => {
@@ -106,7 +97,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: 
 
     if (!password.value || password.value.length < 6) {
       setPasswordError(true);
-      setPasswordErrorMessage('La contraseña debe tener minimo 6 caracteres.');
+      setPasswordErrorMessage('La contraseña debe tener mínimo 6 caracteres.');
       isValid = false;
     } else {
       setPasswordError(false);
@@ -114,6 +105,29 @@ export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: 
     }
 
     return isValid;
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!validateInputs()) return;
+
+    const data = new FormData(event.currentTarget);
+    const email = data.get('email') as string;
+    const password = data.get('password') as string;
+
+    try {
+      const response = await loginApi(email, password);
+      console.log('Login success:', response);
+
+      // 👇 Guardar token en localStorage
+      localStorage.setItem('access_token', response.access_token);
+
+      // 👇 Redirigir al dashboard
+      navigate('/dashboard');
+    } catch (error: any) {
+      console.error('Login failed:', error);
+      alert('Correo o contraseña incorrectos');
+    }
   };
 
   return (
@@ -183,7 +197,6 @@ export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: 
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                autoFocus
                 required
                 fullWidth
                 variant="outlined"
@@ -199,9 +212,8 @@ export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: 
               type="submit"
               fullWidth
               variant="contained"
-              onClick={validateInputs}
             >
-              Inisiar Sesión
+              Iniciar Sesión
             </Button>
             <Link
               component="button"
@@ -210,10 +222,10 @@ export default function SignIn(props: { disableCustomTheme?: boolean; onClose?: 
               variant="body2"
               sx={{ alignSelf: 'center' }}
             >
-              Olvido su contraseña?
+              ¿Olvidó su contraseña?
             </Link>
           </Box>
-          <Divider>or</Divider>
+          <Divider>o</Divider>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Button
               fullWidth
