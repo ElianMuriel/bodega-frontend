@@ -55,11 +55,6 @@ export const deleteCategory = async (id: string) => {
     const response = await api.delete(`/categories/${id}`);
     return response.data;
 };
-
-export const getProducts = () => api.get("/products").then((res) => res.data);
-export const addProduct = (product: any) =>
-    api.post("/products", product).then((res) => res.data);
-
 export const getUsers = async () => {
     const response = await api.get('/users');
     return response.data;
@@ -108,6 +103,35 @@ export const updateSupplier = async (id: string, supplier: {
 
 export const deleteSupplier = async (id: string) => {
     const response = await api.delete(`/suppliers/${id}`);
+    return response.data;
+};
+export const getProducts = async () => {
+    const response = await api.get('/products');
+    return response.data;
+};
+
+export const createProduct = async (product: {
+    name: string;
+    price: number;
+    description?: string;
+    stock?: number;
+}) => {
+    const response = await api.post('/products', product);
+    return response.data;
+};
+
+export const updateProduct = async (id: string, product: {
+    name?: string;
+    price?: number;
+    description?: string;
+    stock?: number;
+}) => {
+    const response = await api.put(`/products/${id}`, product);
+    return response.data;
+};
+
+export const deleteProduct = async (id: string) => {
+    const response = await api.delete(`/products/${id}`);
     return response.data;
 };
 

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { addProduct } from "../services/api";
+import { useEffect, useState } from "react";
+import { createProduct, updateProduct } from "../services/api";
 import {
   Dialog,
   DialogTitle,
@@ -14,35 +14,80 @@ interface AddProductDialogProps {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void; // callback para recargar productos después
+  editProduct?: {
+    id: string;
+    name: string;
+    price: number;
+    description?: string;
+    stock?: number;
+  } | null;
 }
 
-export default function AddProductDialog({ open, onClose, onSuccess }: AddProductDialogProps) {
+export default function AddProductDialog({
+  open,
+  onClose,
+  onSuccess,
+  editProduct,
+}: AddProductDialogProps) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [stock, setStock] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleAdd = async () => {
-    setLoading(true);
-    try {
-      await addProduct({ name, price: parseFloat(price) });
-      if (onSuccess) onSuccess(); // recargar lista de productos
-      onClose();
-    } catch (err) {
-      console.error("Error al agregar producto:", err);
-      alert("Error al agregar producto");
-    } finally {
-      setLoading(false);
+  // Cargar datos si es edición
+  useEffect(() => {
+    if (editProduct) {
+      setName(editProduct.name);
+      setPrice(editProduct.price.toString());
+      setDescription(editProduct.description || "");
+      setStock(editProduct.stock?.toString() || "");
+    } else {
       setName("");
       setPrice("");
+      setDescription("");
+      setStock("");
+    }
+  }, [editProduct, open]);
+
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const payload = {
+        name,
+        price: parseFloat(price),
+        description,
+        stock: parseInt(stock, 10),
+      };
+
+      if (editProduct) {
+        // Editar producto existente
+        await updateProduct(editProduct.id, payload);
+      } else {
+        // Crear producto nuevo
+        await createProduct(payload);
+      }
+
+      if (onSuccess) onSuccess(); // recargar lista
+      onClose();
+    } catch (err) {
+      console.error("Error al guardar producto:", err);
+      alert("Error al guardar producto");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle>➕ Agregar Producto</DialogTitle>
+      <DialogTitle>
+        {editProduct ? "✏️ Editar Producto" : "➕ Agregar Producto"}
+      </DialogTitle>
       <DialogContent>
         <Typography variant="body2" color="textSecondary" gutterBottom>
-          Ingresa los detalles del nuevo producto.
+          {editProduct
+            ? "Actualiza los datos del producto seleccionado."
+            : "Ingresa los detalles del nuevo producto."}
         </Typography>
         <TextField
           label="Nombre"
@@ -59,15 +104,36 @@ export default function AddProductDialog({ open, onClose, onSuccess }: AddProduc
           onChange={(e) => setPrice(e.target.value)}
           type="number"
         />
+        <TextField
+          label="Descripción"
+          fullWidth
+          margin="normal"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <TextField
+          label="Stock"
+          fullWidth
+          margin="normal"
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
+          type="number"
+        />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} disabled={loading}>Cancelar</Button>
+        <Button onClick={onClose} disabled={loading}>
+          Cancelar
+        </Button>
         <Button
           variant="contained"
-          onClick={handleAdd}
+          onClick={handleSave}
           disabled={!name || !price || loading}
         >
-          {loading ? "Guardando..." : "Guardar"}
+          {loading
+            ? "Guardando..."
+            : editProduct
+            ? "Actualizar"
+            : "Guardar"}
         </Button>
       </DialogActions>
     </Dialog>
