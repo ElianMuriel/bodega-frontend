@@ -12,12 +12,14 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded';
 
 const mainListItems = [
   { text: 'Inicio', icon: <HomeRoundedIcon />, path: '/dashboard' },
   { text: 'Categorias', icon: <AnalyticsRoundedIcon />, path: '/categories' },
   { text: 'Usuarios', icon: <PeopleRoundedIcon />, path: '/users' },
   { text: 'Productos', icon: <AssignmentRoundedIcon />, path: '/products' },
+  { text: 'Proveedores', icon: <LocalShippingRoundedIcon />, path: '/suppliers' },
 ];
 
 const secondaryListItems = [
