@@ -11,22 +11,24 @@ const api = axios.create({
     },
 });
 
-// Si hay token guardado, lo añade automáticamente a las peticiones
-/*api.interceptors.request.use((config) => {
+api.interceptors.request.use((config) => {
     const token = localStorage.getItem('access_token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
-});*/
+});
 
-// Función para login
 export const loginApi = async (email: string, password: string) => {
     const response = await api.post('/auth/login', { email, password });
-    return response.data; // Devuelve el token y demás info
+    const { access_token, user } = response.data;
+
+    localStorage.setItem('access_token', access_token);
+    localStorage.setItem('user', JSON.stringify(user));
+
+    return response.data;
 };
 
-// Función para registro
 export const registerApi = async (email: string, password: string, username?: string) => {
     const response = await api.post("/users", {
         email,
@@ -60,7 +62,7 @@ export const getUsers = async () => {
     return response.data;
 };
 
-export const createUser = async (user: { username: string; email: string; phone: string; role: string; password: string}) => {
+export const createUser = async (user: { username: string; email: string; phone: string; role: string; password: string }) => {
     const response = await api.post('/users', user);
     return response.data;
 };

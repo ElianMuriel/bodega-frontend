@@ -8,7 +8,10 @@ import Typography from '@mui/material/Typography';
 import SelectContent from '../ui/SelectContent';
 import MenuContent from './MenuContent';
 import CardAlert from '../ui/CardAlert';
-import OptionsMenu from './OptionsMenu';
+import Button from '@mui/material/Button';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -24,6 +27,22 @@ const Drawer = styled(MuiDrawer)({
 });
 
 export default function SideMenu() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<{ username: string; email: string } | null>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
+    navigate('/');
+  };
+
   return (
     <Drawer
       variant="permanent"
@@ -67,19 +86,26 @@ export default function SideMenu() {
       >
         <Avatar
           sizes="small"
-          alt="Riley Carter"
+          alt={user?.username ?? 'Invitado'}
           src="/static/images/avatar/7.jpg"
           sx={{ width: 36, height: 36 }}
         />
         <Box sx={{ mr: 'auto' }}>
           <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: '16px' }}>
-            Riley Carter
+            {user?.username ?? 'Invitado'}
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            riley@email.com
+            {user?.email ?? 'sin-email'}
           </Typography>
         </Box>
-        <OptionsMenu />
+        <Button
+          variant="outlined"
+          startIcon={<LogoutRoundedIcon />}
+          size="small"
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
       </Stack>
     </Drawer>
   );
